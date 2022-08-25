@@ -1,0 +1,9 @@
+.env
+*.db
+media
+*.pyc
+*.pyo
+__pycache__
+.idea
+.vscode
+.venv
