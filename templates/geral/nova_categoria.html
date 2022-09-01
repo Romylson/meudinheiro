@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Categoria | {{ block.super }}
+{% endblock titulo %}
+
+{% block corpo %}
+    <h1>Categoria</h1>
+    {{ form.as_p }}
+    <button>Salvar</button>
+{% endblock corpo %}
