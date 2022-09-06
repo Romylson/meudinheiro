@@ -43,7 +43,9 @@ DJANGO_APPS = [
 
 ]
 
-APPS_TERCEIROS = []
+APPS_TERCEIROS = [
+    'widget_tweaks',
+]
 
 APPS_PROJETO = [
     'geral.apps.GeralConfig',

@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Listagem de Categorias</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block titulo %} Minhas Categorias | {{ block.super }} {% endblock titulo %}
+
+{% block corpo %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Minhas Categorias</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Tipo</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for categoria in categorias %}
+                <tr>
+                    <th scope="row">{{categoria.id}}</th>
+                    <td>{{categoria.nome}}</td>
+                    <td>{{categoria.descricao}}</td>
+                    <td>{{categoria.get_tipo_display}}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <a class="btn btn-outline-primary" href="{% url 'geral:nova_categoria' %}">Nova Categoria</a>
+        </div>
+    </div>
+</div>
+
+{% endblock corpo %}
