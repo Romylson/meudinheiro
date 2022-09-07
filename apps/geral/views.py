@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CategoriaForm
 from django.contrib import messages
+from django.core.checks import messages
 from .models import Categoria
 # Create your views here.
 

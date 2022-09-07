@@ -49,6 +49,7 @@ APPS_TERCEIROS = [
 
 APPS_PROJETO = [
     'geral.apps.GeralConfig',
+    'movimentacoes.apps.MovimentacoesConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + APPS_TERCEIROS + APPS_PROJETO
