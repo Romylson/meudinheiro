@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import MovimentacaoForm
 from .models import Movimentacao
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required
 def lista_movimentacoes(request):
     template_name = 'movimentacoes/lista_movimentacoes.html'
     movimentacoes = Movimentacao.objects.filter(usuario=request.user)
@@ -15,6 +16,7 @@ def lista_movimentacoes(request):
     }
     return  render(request,template_name, context)
 
+@login_required
 def nova_movimentacao(request):
     template_name = 'movimentacoes/nova_movimentacao.html'
     context = {}
@@ -33,7 +35,7 @@ def nova_movimentacao(request):
         form = MovimentacaoForm()
     context['form'] = form
     return render(request, template_name, context)
-
+@login_required
 def editar_movimentacao(request, pk):
     template_name = 'movimentacoes/nova_movimentacao.html'
     context = {}
