@@ -41,7 +41,7 @@ def editar_movimentacao(request, pk):
     context = {}
     movimentacao = get_object_or_404(Movimentacao, pk=pk)  # Movimentacao.objects.get(pk=pk)
     if request.method == 'POST':
-        form = MovimentacaoForm(data=request.POST, instance=movimentacao)
+        form = MovimentacaoForm(data=request.POST,usuario=request.user ,instance=movimentacao)
         if form.is_valid():
             form.save()
             messages.success(request,'Movimentação alterada com sucesso.')
@@ -50,7 +50,7 @@ def editar_movimentacao(request, pk):
             form = MovimentacaoForm(instance=movimentacao)
             context['form'] = form
     else:
-        form = MovimentacaoForm(instance=movimentacao)
+        form = MovimentacaoForm(usuario=request.user,instance=movimentacao)
     context['form'] = form
     return render(request, template_name, context)
 def apagar_movimentacao(request, pk):
