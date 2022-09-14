@@ -21,7 +21,7 @@ def nova_movimentacao(request):
     template_name = 'movimentacoes/nova_movimentacao.html'
     context = {}
     if request.method == 'POST':
-        form = MovimentacaoForm(request.POST)
+        form = MovimentacaoForm(data=request.POST, usuario=request.user)
         if form.is_valid():
             f = form.save(commit=False)
             f.usuario = request.user
@@ -32,7 +32,7 @@ def nova_movimentacao(request):
             form = MovimentacaoForm(request.POST)
             context['form'] = form
     else:
-        form = MovimentacaoForm()
+        form = MovimentacaoForm(usuario=request.user)
     context['form'] = form
     return render(request, template_name, context)
 @login_required
