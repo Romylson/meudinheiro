@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+from movimentacoes.models import Movimentacao
 from .forms import CategoriaForm, LoginForm,UserForm
 from django.contrib import messages
 from .models import Categoria
@@ -87,24 +89,13 @@ def lista_categorias(request):
     }
     return render(request, template_name, context)
 
-def editar_categoria(request, pk):
-    template_name = 'categorias/nova_categoria.html'
-    context = {}
-    categoria = get_object_or_404(Categoria, pk=pk)  # Categoria.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = CategoriaForm(data=request.POST, instance=categoria)
-        if form.is_valid():
-            form.save()
-            messages.success(request,'Categoria alterada com sucesso.')
-            return redirect('categorias:lista_categorias')
-        else:
-            form = CategoriaForm(instance=categoria)
-            context['form'] = form
-    else:
-        form = CategoriaForm(instance=categoria)
-    context['form'] = form
+def relatorio(request):
+    template_name = 'geral/relatorio.html'
+    data_inicial = request.GET.get('data-inicial',timezone.now())
+    data_final = request.GET.get('data-final',timezone.now())
+    movimentacoes = Movimentacao.objects.filter(usuario=request.user,data_criacao__gte=data_inicial,
+                                                data_criacao__lte=data_final) # django lookup
+    context = {
+        'movimentacoes': movimentacoes,
+    }
     return render(request, template_name, context)
-def apagar_categoria(request, pk):
-    categoria = get_object_or_404(Categoria, pk=pk)  # Categoria.objects.get(pk=pk)
-    categoria.delete()
-    return redirect('categorias:lista_categorias')
